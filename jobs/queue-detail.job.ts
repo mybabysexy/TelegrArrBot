@@ -26,6 +26,7 @@ class GetQueueDetail {
                     await bot.telegram.editMessageText(env("TELEGRAM_CHAT_ID"), lastQueueMessageId, null, message, {
                         parse_mode: "HTML",
                     });
+                    await redis.set(`last_queue_message_id:${env("TELEGRAM_CHAT_ID")}`, lastQueueMessageId);
                 } else {
                     const {message_id} = await bot.telegram.sendMessage(env("TELEGRAM_CHAT_ID"), message, {
                         parse_mode: "HTML",
